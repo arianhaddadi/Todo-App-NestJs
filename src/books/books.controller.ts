@@ -8,13 +8,13 @@ import CreateBookDto from './dto/create-book.dto';
 export class BooksController {
     constructor(private readonly booksServices: BooksServices) {}
 
-    @ApiResponse({ status: 200, description: "postBook() will handle the creation of new Books." }) 
+    @ApiResponse({ status: 200, description: "This will handle the creation of new Books." }) 
     @Post('post')
     postBook( @Body() genre: CreateBookDto) {
         return this.booksServices.insert(genre);
     }
 
-    @ApiResponse({ status: 200, description: "getAll() returns the list of all the existing books in the database." }) 
+    @ApiResponse({ status: 200, description: "This returns the list of all the existing books in the database." }) 
     @Get()
     getAll() {
         return this.booksServices.getAllBooks();

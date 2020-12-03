@@ -7,13 +7,13 @@ import CreateGenreDto from './dto/create-genre.dto';
 export default class GenreController {
     constructor(private readonly genreServices: GenreServices) {}
 
-    @ApiResponse({ status: 200, description: "postGenre() will handle the creation of new Genres." }) 
+    @ApiResponse({ status: 200, description: "This will handle the creation of new Genres." }) 
     @Post('post')
     postGenre( @Body() genre: CreateGenreDto) {
         return this.genreServices.insert(genre);
     }
 
-    @ApiResponse({ status: 200, description: "getAll() returns the list of all the existing genres in the database." }) 
+    @ApiResponse({ status: 200, description: "This returns the list of all the existing genres in the database." }) 
     @Get()
     getAll() {
         return this.genreServices.getAllGenre();
