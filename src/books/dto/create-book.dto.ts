@@ -7,6 +7,6 @@ export default class CreateBookDto {
     @ApiPropertyOptional({type: "number" ,description:"Enter the id of the user owning the book."}) 
     readonly userID: number;
 
-    @ApiPropertyOptional({type: "number[]" ,description:"Enter ids of the genres associated with the book."}) 
+    @ApiPropertyOptional({type: "array", items:{type: "number"} ,description:"Enter ids of the genres associated with the book."}) 
     readonly genreIDs: number[];
 }
