@@ -21,7 +21,7 @@ export class BooksController {
         return this.booksServices.update(bookDetails);
     }
 
-    @ApiResponse({ status: 200, description: "This will update properties of existing Books." }) 
+    @ApiResponse({ status: 200, description: "This will delete the book with given Id." }) 
     @Delete('delete')
     deleteBook( @Param() bookId: number) {
         return this.booksServices.delete(bookId);
