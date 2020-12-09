@@ -18,8 +18,11 @@ export class UserServices {
         return await UserEntity.find();
     }
     async getBooksOfUser(userID: number): Promise<BookEntity[]> {
-        console.log(typeof(userID));
         const user: UserEntity = await UserEntity.findOne({where: {id: userID}, relations: ['books']});
         return user.books;
+    }
+    async findByName(name: string): Promise<UserEntity> {
+        const user: UserEntity = await UserEntity.findOne({where: {name: name}});
+        return user;
     }
 }
