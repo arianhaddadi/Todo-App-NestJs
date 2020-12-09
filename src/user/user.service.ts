@@ -21,8 +21,8 @@ export class UserServices {
         const user: UserEntity = await UserEntity.findOne({where: {id: userID}, relations: ['books']});
         return user.books;
     }
-    async findByName(name: string): Promise<UserEntity> {
-        const user: UserEntity = await UserEntity.findOne({where: {name: name}});
+    async findByUsername(username: string): Promise<UserEntity> {
+        const user: UserEntity = await UserEntity.findOne({where: {username: username}});
         return user;
     }
 }
