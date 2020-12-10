@@ -3,6 +3,7 @@ import {ApiResponse} from '@nestjs/swagger';
 import { UserServices } from './user.service';
 import CreateUserDto from './dto/create-user.dto';
 import { Public } from 'src/public-decorator';
+import {ApiBearerAuth} from '@nestjs/swagger';
 
 @Controller('users')
 export class UserController {
@@ -15,6 +16,7 @@ export class UserController {
         return this.usersServices.insert(user);
     }
 
+    @ApiBearerAuth()
     @ApiResponse({ status: 200, description: "This returns the list of all the existing users in the database" }) 
     @Get()
     getAll() {
