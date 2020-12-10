@@ -11,6 +11,7 @@ export class AppController {
     async login(@Request() req) {
         return this.authService.login(req.user);
     }
+    
     @UseGuards(AuthGuard("jwt"))
     @Get('profile')
         getProfile(@Request() req) {
