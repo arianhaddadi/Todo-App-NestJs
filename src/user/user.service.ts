@@ -2,17 +2,14 @@ import { Injectable } from '@nestjs/common';
 import UserEntity from '../db/entity/user.entity';
 import CreateUserDto from './dto/create-user.dto';
 import BookEntity from '../db/entity/book.entity';
-import bcrypt from 'bcrypt';
+import {hashSync} from 'bcrypt';
 
 @Injectable()
 export class UserServices {
 
     createPasswordHash(plainTextPassword: string): string {
-        let hashedPassword;
-        let saltRounds = 10;
-        bcrypt.hash(plainTextPassword, saltRounds, function(err, hash){
-            hashedPassword = hash;
-        });
+        const saltRounds = 10;
+        const hashedPassword = hashSync(plainTextPassword, saltRounds);
         return hashedPassword;
     }
 

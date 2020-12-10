@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import GenreServices from './genre.service';
 import GenreController from './genre.controller';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Module({
