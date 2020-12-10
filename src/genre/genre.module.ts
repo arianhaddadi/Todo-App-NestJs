@@ -3,6 +3,7 @@ import GenreServices from './genre.service';
 import GenreController from './genre.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Module({
   imports: [],
@@ -11,7 +12,7 @@ import { AuthGuard } from '@nestjs/passport';
     GenreServices,
     {
       provide: APP_GUARD,
-      useClass: AuthGuard("jwt")
+      useClass: JwtAuthGuard
     }
   ],
 })

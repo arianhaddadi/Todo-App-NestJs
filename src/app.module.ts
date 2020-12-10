@@ -9,6 +9,8 @@ import BooksModule from './Books/books.module';
 import GenreModule from './Genre/genre.module';
 import BookEntity from './db/entity/book.entity';
 import GenreEntity from './db/entity/genre.entity';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Module({
     imports: [UserModule ,
@@ -18,9 +20,15 @@ import GenreEntity from './db/entity/genre.entity';
                 [UserEntity, BookEntity , GenreEntity],
             ),
             TypeOrmModule.forRoot(),
-            AuthModule,
+            AuthModule
             ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [
+        AppService,
+        {
+            provide: APP_GUARD,
+            useClass: JwtAuthGuard
+        }
+    ],
 })
 export class AppModule {}
