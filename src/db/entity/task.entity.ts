@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import CategoryEntity from './category.entity';
+import ItemEntity from './item.entity';
+import TagEntity from './tags.entity';
 
 @Entity()
 export default class TaskEntity extends BaseEntity {
@@ -9,8 +12,13 @@ export default class TaskEntity extends BaseEntity {
     @Column({length: 500})
     name: string;
 
-    @Column({length: 500})
-    password: string;
-
+    @OneToOne(type => CategoryEntity)
+    @JoinColumn()
+    category: CategoryEntity;
     
+    @OneToMany(type => ItemEntity, itemEntity => itemEntity.task)
+    items: ItemEntity[];
+
+    @OneToMany(type => TagEntity, tagEntity => tagEntity.task)
+    tags: TagEntity[];
 }

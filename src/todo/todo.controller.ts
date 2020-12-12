@@ -1,5 +1,4 @@
 import { Body, Controller, Get, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { Controller } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger'; 
 import { TodoService } from './todo.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
@@ -12,7 +11,7 @@ export class TodoController {
     @ApiResponse({ status: 200, description: "This will handle the creation of new Tasks" }) 
     @Post('post')
     postUser( @Body() task: CreateTaskDto) {
-        return this.todoService.insert(user);
+        return this.todoService.insert(task);
     }
 
     // @ApiBearerAuth()
@@ -27,5 +26,5 @@ export class TodoController {
     // @Get('books')
     // getBooks( @Body('userID', ParseIntPipe) userID: number ) {
     //     return this.todoService.getBooksOfUser(userID);
-    }
+    // }
 }

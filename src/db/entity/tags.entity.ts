@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToMa
 import TaskEntity from './task.entity';
 
 @Entity()
-export default class ItemEntity extends BaseEntity {
+export default class TagEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -10,9 +10,8 @@ export default class ItemEntity extends BaseEntity {
     @Column({length: 500})
     name: string;
 
-    @Column()
-    dueDate: Date;
-
     @ManyToOne(type => TaskEntity, taskEntity => taskEntity.items)
     task: TaskEntity;
+
+
 }
