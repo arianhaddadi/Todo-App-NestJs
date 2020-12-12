@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import CategoryEntity from './category.entity';
 import ItemEntity from './item.entity';
-import TagEntity from './tags.entity';
+import TagEntity from './tag.entity';
 
 @Entity()
 export default class TaskEntity extends BaseEntity {
