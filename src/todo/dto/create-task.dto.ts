@@ -6,7 +6,7 @@ export default class CreateTaskDto {
     readonly name: string;
 
     @ApiProperty({type: "number" ,description:"Enter Task's Category Id."}) 
-    readonly category: number;
+    readonly categoryId: number;
 
     @ApiPropertyOptional({type: "array" , items: {type: "number"}, description:"Enter Task's Items Ids."}) 
     readonly items: number[];
