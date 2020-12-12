@@ -5,20 +5,18 @@ import { UserModule } from './User/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import UserEntity from './db/entity/user.entity';
-import BooksModule from './Books/books.module';
-import GenreModule from './Genre/genre.module';
-import BookEntity from './db/entity/book.entity';
-import GenreEntity from './db/entity/genre.entity';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { TodoModule } from './todo/todo.module';
+import CategoryEntity from './db/entity/category.entity';
+import ItemEntity from './db/entity/item.entity';
+import TagEntity from './db/entity/tag.entity';
+import TaskEntity from './db/entity/task.entity';
 
 @Module({
     imports: [UserModule ,
-            BooksModule,
-            GenreModule,
             TypeOrmModule.forFeature(
-                [UserEntity, BookEntity , GenreEntity],
+                [UserEntity, CategoryEntity , ItemEntity, TagEntity, TaskEntity],
             ),
             TypeOrmModule.forRoot(),
             AuthModule,
