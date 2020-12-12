@@ -3,28 +3,39 @@ import { ApiResponse } from '@nestjs/swagger';
 import { TodoService } from './todo.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import CreateTaskDto from './dto/create-task.dto';
+import CreateCategoryDto from './dto/create-category.dto';
+import CreateTagDto from './dto/create-tag.dto';
+import CreateItemDto from './dto/create-item.dto';
 
 @Controller('todo')
 export class TodoController {
     constructor(private readonly todoService: TodoService) {}
 
-    @ApiResponse({ status: 200, description: "This will handle the creation of new Tasks" }) 
-    @Post('post')
-    postUser( @Body() task: CreateTaskDto) {
-        return this.todoService.insert(task);
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: "This will handle the creation of new Tasks." }) 
+    @Post('task/post')
+    postTask( @Body() task: CreateTaskDto) {
+        return this.todoService.insertTask(task);
     }
 
-    // @ApiBearerAuth()
-    // @ApiResponse({ status: 200, description: "This returns the list of all the existing users in the database" }) 
-    // @Get()
-    // getAll() {
-    //     return this.todoService.getAllUsers();
-    // }
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: "This will handle the creation of new Categories." }) 
+    @Post('category/post')
+    postCategory( @Body() category: CreateCategoryDto) {
+        return this.todoService.insertCategory(category);
+    }
 
-    // @ApiBearerAuth()
-    // @ApiResponse({ status: 200, description: "This return all the books which are associated with the user provided through 'userID' by the request" })   
-    // @Get('books')
-    // getBooks( @Body('userID', ParseIntPipe) userID: number ) {
-    //     return this.todoService.getBooksOfUser(userID);
-    // }
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: "This will handle the creation of new Tasks." }) 
+    @Post('category/tag')
+    postTag( @Body() tag: CreateTagDto) {
+        return this.todoService.insertTag(tag);
+    }
+    
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: "This will handle the creation of new Items." }) 
+    @Post('category/item')
+    postItem( @Body() item: CreateItemDto) {
+        return this.todoService.insertItem(item);
+    }
 }
