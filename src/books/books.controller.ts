@@ -1,9 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import {ApiResponse} from '@nestjs/swagger'; 
+import { ApiParam, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'; 
 import { BooksServices } from './books.service';
 import CreateBookDto from './dto/create-book.dto';
 import UpdateBookDto from './dto/update-book.dto';
-import {ApiBearerAuth} from '@nestjs/swagger';
 
 @Controller('books')
 export class BooksController {
@@ -24,6 +23,7 @@ export class BooksController {
     }
 
     @ApiBearerAuth()
+    @ApiParam({type: "number", name:"bookId"})
     @ApiResponse({ status: 200, description: "This will delete the book with given Id." }) 
     @Delete('delete')
     deleteBook( @Param() bookId: number) {
