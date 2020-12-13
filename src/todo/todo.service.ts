@@ -76,6 +76,7 @@ export class TodoService {
     async deleteTask(taskId: number) {
         const taskEntity: TaskEntity = await TaskEntity.findOne(taskId);
         await TaskEntity.remove(taskEntity);
+        this.removeDeprecatedItems();
         return taskEntity;
     }
 
