@@ -7,6 +7,7 @@ import CreateCategoryDto from './dto/create-category.dto';
 import CreateItemDto from './dto/create-item.dto';
 import CreateTagDto from './dto/create-tag.dto';
 import CreateTaskDto from './dto/create-task.dto';
+import UpdateTaskDto from './dto/update-task.dto';
 
 @Injectable()
 export class TodoService {
@@ -32,6 +33,33 @@ export class TodoService {
         return taskEntity;
     }
 
+    async updateTask(taskDetails: UpdateTaskDto) {
+        const {id, name, categoryId, items, tags} = taskDetails;
+        const taskEntity: TaskEntity = await TaskEntity.findOne(id);
+        taskEntity.name = name;
+        taskEntity.category = await CategoryEntity.findOne(categoryId);
+        taskEntity.items = [];
+        if (items) {
+            for(let i = 0; i < items.length; i++) {
+                taskEntity.items.push(await ItemEntity.findOne(items[i]));
+            }
+        }
+        taskEntity.tags = [];
+        if (tags) {
+            for(let i = 0; i < tags.length; i++) {
+                taskEntity.tags.push(await TagEntity.findOne(tags[i]));
+            }
+        }
+        await TaskEntity.save(taskEntity);
+        return taskEntity;
+    }
+
+    async deleteTask(taskId: number) {
+        const taskEntity: TaskEntity = await TaskEntity.findOne(taskId);
+        await TaskEntity.remove(taskEntity);
+        return taskEntity;
+    }
+
     async insertCategory(categoryDetails: CreateCategoryDto) {
         const categoryEntity: CategoryEntity = CategoryEntity.create();
         const {name} = categoryDetails;
@@ -53,6 +81,12 @@ export class TodoService {
         const {name} = itemDetails;
         itemEntity.name = name;
         await ItemEntity.save(itemEntity);
+        return itemEntity;
+    }
+
+    async deleteItem(itemId: number) {
+        const itemEntity: ItemEntity = await ItemEntity.findOne(itemId);
+        ItemEntity.delete(itemEntity);
         return itemEntity;
     }
 }
