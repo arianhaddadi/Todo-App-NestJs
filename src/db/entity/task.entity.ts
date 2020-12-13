@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, OneToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
 import CategoryEntity from './category.entity';
 import ItemEntity from './item.entity';
 import TagEntity from './tag.entity';
@@ -19,6 +19,7 @@ export default class TaskEntity extends BaseEntity {
     @OneToMany(type => ItemEntity, itemEntity => itemEntity.task)
     items: ItemEntity[];
 
-    @OneToMany(type => TagEntity, tagEntity => tagEntity.task)
+    @ManyToMany(type => TagEntity, tagEntity => tagEntity.tasks)
+    @JoinTable()
     tags: TagEntity[];
 }

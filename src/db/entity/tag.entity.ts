@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany } from 'typeorm';
 import TaskEntity from './task.entity';
 
 @Entity()
@@ -10,8 +10,8 @@ export default class TagEntity extends BaseEntity {
     @Column({length: 500})
     name: string;
 
-    @ManyToOne(type => TaskEntity, taskEntity => taskEntity.items)
-    task: TaskEntity;
+    @ManyToMany(type => TaskEntity, taskEntity => taskEntity.items)
+    tasks: TaskEntity[];
 
 
 }
