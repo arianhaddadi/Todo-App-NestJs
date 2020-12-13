@@ -13,6 +13,6 @@ export default class ItemEntity extends BaseEntity {
     @Column({nullable: true})
     dueDate: Date;
 
-    @ManyToOne(type => TaskEntity, taskEntity => taskEntity.items)
+    @ManyToOne(type => TaskEntity, taskEntity => taskEntity.items, {onDelete: "CASCADE"})
     task: TaskEntity;
 }
