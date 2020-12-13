@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { hashSync } from 'bcrypt';
 import UserEntity from '../db/entity/user.entity';
 import CreateUserDto from './dto/create-user.dto';
-import {hashSync} from 'bcrypt';
 
 @Injectable()
 export class UserServices {

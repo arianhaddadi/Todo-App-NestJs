@@ -1,5 +1,4 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'; 
-import ItemEntity from 'src/db/entity/item.entity';
 import CreateTaskItemDto from './create-taskItems.dto';
 
 export default class CreateTaskDto {
