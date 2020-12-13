@@ -1,8 +1,7 @@
 import { Body, Controller, Get, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger'; 
+import { ApiResponse, ApiBearerAuth } from '@nestjs/swagger'; 
 import { UserServices } from './user.service';
 import { Public } from 'src/public-decorator';
-import { ApiBearerAuth } from '@nestjs/swagger';
 import CreateUserDto from './dto/create-user.dto';
 
 @Controller('users')
