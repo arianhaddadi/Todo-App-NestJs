@@ -1,5 +1,4 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'; 
-import CategoryEntity from 'src/db/entity/category.entity';
 
 export default class CreateTaskDto {
     @ApiProperty({type: "string" ,description:"Enter Task's Name.", maxLength: 500}) 
