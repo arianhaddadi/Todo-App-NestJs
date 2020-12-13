@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger'; 
+import { ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger'; 
 import { TodoService } from './todo.service';
-import { ApiBearerAuth } from '@nestjs/swagger';
 import CreateTaskDto from './dto/create-task.dto';
 import CreateCategoryDto from './dto/create-category.dto';
 import CreateTagDto from './dto/create-tag.dto';
@@ -27,6 +26,7 @@ export class TodoController {
     }
 
     @ApiBearerAuth()
+    @ApiParam({type: "number", name:"taskId"})
     @ApiResponse({ status: 200, description: "This will handle the deletion of Items." }) 
     @Delete('tasks/delete')
     deleteTask( @Param() taskId: number) {
@@ -55,6 +55,7 @@ export class TodoController {
     }
 
     @ApiBearerAuth()
+    @ApiParam({type: "number", name:"itemId"})
     @ApiResponse({ status: 200, description: "This will handle the deletion of Items." }) 
     @Delete('items/delete')
     deleteItem( @Param() itemId: number) {
