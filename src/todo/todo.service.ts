@@ -7,10 +7,20 @@ import CreateCategoryDto from './dto/create-category.dto';
 import CreateItemDto from './dto/create-item.dto';
 import CreateTagDto from './dto/create-tag.dto';
 import CreateTaskDto from './dto/create-task.dto';
+import CreateTaskItemDto from './dto/create-taskItems.dto';
 import UpdateTaskDto from './dto/update-task.dto';
 
 @Injectable()
 export class TodoService {
+
+    async createANewItem(itemDetails: CreateTaskItemDto) {
+        const newItem = ItemEntity.create();
+        const {dueDate, name} = itemDetails;
+        if (dueDate) newItem.dueDate = dueDate;
+        newItem.name = name;
+        await ItemEntity.save(newItem);
+        return newItem;
+    }
 
     async insertTask(taskDetails: CreateTaskDto) {
         const taskEntity: TaskEntity = TaskEntity.create();
@@ -20,7 +30,8 @@ export class TodoService {
         taskEntity.items = [];
         if (items) {
             for(let i = 0; i < items.length; i++) {
-                taskEntity.items.push(await ItemEntity.findOne(items[i]));
+                const newItem = await this.createANewItem(items[i]);
+                taskEntity.items.push(newItem);
             }
         }
         taskEntity.tags = [];
@@ -33,6 +44,12 @@ export class TodoService {
         return taskEntity;
     }
 
+    
+    async removeDeprecatedItems() {
+        const items = await ItemEntity.find({where: {task: null}});
+        items.forEach(async elem => await ItemEntity.remove(elem));
+    }
+
     async updateTask(taskDetails: UpdateTaskDto) {
         const {id, name, categoryId, items, tags} = taskDetails;
         const taskEntity: TaskEntity = await TaskEntity.findOne(id);
@@ -41,7 +58,8 @@ export class TodoService {
         taskEntity.items = [];
         if (items) {
             for(let i = 0; i < items.length; i++) {
-                taskEntity.items.push(await ItemEntity.findOne(items[i]));
+                const newItem = await this.createANewItem(items[i]);
+                taskEntity.items.push(newItem);
             }
         }
         taskEntity.tags = [];
@@ -51,6 +69,7 @@ export class TodoService {
             }
         }
         await TaskEntity.save(taskEntity);
+        this.removeDeprecatedItems();
         return taskEntity;
     }
 
@@ -78,8 +97,10 @@ export class TodoService {
 
     async insertItem(itemDetails: CreateItemDto) {
         const itemEntity: ItemEntity = ItemEntity.create();
-        const {name} = itemDetails;
+        const {name, dueDate, taskId} = itemDetails;
         itemEntity.name = name;
+        itemEntity.task = await TaskEntity.findOne(taskId);
+        if (dueDate) itemEntity.dueDate = dueDate;
         await ItemEntity.save(itemEntity);
         return itemEntity;
     }

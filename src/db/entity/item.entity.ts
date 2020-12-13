@@ -10,7 +10,7 @@ export default class ItemEntity extends BaseEntity {
     @Column({length: 500})
     name: string;
 
-    @Column()
+    @Column({nullable: true})
     dueDate: Date;
 
     @ManyToOne(type => TaskEntity, taskEntity => taskEntity.items)

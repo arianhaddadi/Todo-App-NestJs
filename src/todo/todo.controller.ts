@@ -14,49 +14,49 @@ export class TodoController {
 
     @ApiBearerAuth()
     @ApiResponse({ status: 200, description: "This will handle the creation of new Tasks." }) 
-    @Post('task/post')
+    @Post('tasks/post')
     postTask( @Body() task: CreateTaskDto) {
         return this.todoService.insertTask(task);
     }
 
     @ApiBearerAuth()
     @ApiResponse({ status: 200, description: "This will handle the updating of existing Tasks." }) 
-    @Put('task/update')
+    @Put('tasks/update')
     updateTask( @Body() task: UpdateTaskDto) {
         return this.todoService.updateTask(task);
     }
 
     @ApiBearerAuth()
     @ApiResponse({ status: 200, description: "This will handle the deletion of Items." }) 
-    @Delete('task/delete')
+    @Delete('tasks/delete')
     deleteTask( @Param() taskId: number) {
         return this.todoService.deleteTask(taskId);
     }
 
     @ApiBearerAuth()
     @ApiResponse({ status: 200, description: "This will handle the creation of new Categories." }) 
-    @Post('category/post')
+    @Post('categories/post')
     postCategory( @Body() category: CreateCategoryDto) {
         return this.todoService.insertCategory(category);
     }
 
     @ApiBearerAuth()
     @ApiResponse({ status: 200, description: "This will handle the creation of new Tasks." }) 
-    @Post('tag/post')
+    @Post('tags/post')
     postTag( @Body() tag: CreateTagDto) {
         return this.todoService.insertTag(tag);
     }
     
     @ApiBearerAuth()
     @ApiResponse({ status: 200, description: "This will handle the creation of new Items." }) 
-    @Post('item/post')
+    @Post('items/post')
     postItem( @Body() item: CreateItemDto) {
         return this.todoService.insertItem(item);
     }
 
     @ApiBearerAuth()
     @ApiResponse({ status: 200, description: "This will handle the deletion of Items." }) 
-    @Delete('item/delete')
+    @Delete('items/delete')
     deleteItem( @Param() itemId: number) {
         return this.todoService.deleteItem(itemId);
     }
