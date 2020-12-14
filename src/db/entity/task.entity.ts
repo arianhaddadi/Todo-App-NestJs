@@ -12,9 +12,6 @@ export default class TaskEntity extends BaseEntity {
     @Column({length: 500})
     name: string;
 
-    @Column({length: 500, nullable: true})
-    text: string
-
     @ManyToOne(type => CategoryEntity)
     category: CategoryEntity;
     

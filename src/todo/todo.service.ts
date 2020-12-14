@@ -24,10 +24,9 @@ export class TodoService {
 
     async insertTask(taskDetails: CreateTaskDto) {
         const taskEntity: TaskEntity = TaskEntity.create();
-        const {name, categoryId, items, tags, text} = taskDetails;
+        const {name, categoryId, items, tags} = taskDetails;
         taskEntity.name = name;
         taskEntity.category = await CategoryEntity.findOne(categoryId);
-        if (text) taskEntity.text = text;
         taskEntity.items = [];
         if (items) {
             for(let i = 0; i < items.length; i++) {
@@ -52,11 +51,10 @@ export class TodoService {
     }
 
     async updateTask(taskDetails: UpdateTaskDto) {
-        const {id, name, categoryId, items, tags, text} = taskDetails;
+        const {id, name, categoryId, items, tags} = taskDetails;
         const taskEntity: TaskEntity = await TaskEntity.findOne(id);
         taskEntity.name = name;
         taskEntity.category = await CategoryEntity.findOne(categoryId);
-        if (text) taskEntity.text = text;
         taskEntity.items = [];
         if (items) {
             for(let i = 0; i < items.length; i++) {
