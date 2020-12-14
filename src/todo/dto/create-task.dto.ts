@@ -8,6 +8,9 @@ export default class CreateTaskDto {
     @ApiProperty({type: "number" ,description:"Enter Task's Category Id."}) 
     readonly categoryId: number;
 
+    @ApiPropertyOptional({type: "string", description:"Enter Task's Text.", maxLength: 500}) 
+    readonly text: string;
+
     @ApiPropertyOptional({type: "array" , items: {type: "ItemEntity"}, description:"Enter Task's Items."}) 
     readonly items: CreateTaskItemDto[];
 
