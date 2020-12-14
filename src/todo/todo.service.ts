@@ -13,7 +13,7 @@ import UpdateTaskDto from './dto/update-task.dto';
 @Injectable()
 export class TodoService {
 
-    async createANewItem(itemDetails: CreateTaskItemDto) {
+    async createANewItem(itemDetails: CreateTaskItemDto): Promise<ItemEntity> {
         const newItem = ItemEntity.create();
         const {dueDate, name} = itemDetails;
         if (dueDate) newItem.dueDate = dueDate;
@@ -22,7 +22,7 @@ export class TodoService {
         return newItem;
     }
 
-    async insertTask(taskDetails: CreateTaskDto) {
+    async insertTask(taskDetails: CreateTaskDto): Promise<TaskEntity> {
         const taskEntity: TaskEntity = TaskEntity.create();
         const {name, categoryId, items, tags} = taskDetails;
         taskEntity.name = name;
@@ -50,7 +50,7 @@ export class TodoService {
         items.forEach(async elem => await ItemEntity.remove(elem));
     }
 
-    async updateTask(taskDetails: UpdateTaskDto) {
+    async updateTask(taskDetails: UpdateTaskDto): Promise<TaskEntity> {
         const {id, name, categoryId, items, tags} = taskDetails;
         const taskEntity: TaskEntity = await TaskEntity.findOne(id);
         taskEntity.name = name;
@@ -73,14 +73,14 @@ export class TodoService {
         return taskEntity;
     }
 
-    async deleteTask(taskId: number) {
+    async deleteTask(taskId: number):Promise<TaskEntity> {
         const taskEntity: TaskEntity = await TaskEntity.findOne(taskId);
         await TaskEntity.remove(taskEntity);
         this.removeDeprecatedItems();
         return taskEntity;
     }
 
-    async insertCategory(categoryDetails: CreateCategoryDto) {
+    async insertCategory(categoryDetails: CreateCategoryDto): Promise<CategoryEntity> {
         const categoryEntity: CategoryEntity = CategoryEntity.create();
         const {name} = categoryDetails;
         categoryEntity.name = name;
@@ -88,7 +88,7 @@ export class TodoService {
         return categoryEntity;
     }
 
-    async insertTag(tagDetails: CreateTagDto) {
+    async insertTag(tagDetails: CreateTagDto): Promise<TagEntity> {
         const tagEntity: TagEntity = TagEntity.create();
         const {name} = tagDetails;
         tagEntity.name = name;
@@ -96,7 +96,7 @@ export class TodoService {
         return tagEntity;
     }
 
-    async insertItem(itemDetails: CreateItemDto) {
+    async insertItem(itemDetails: CreateItemDto): Promise<ItemEntity> {
         const itemEntity: ItemEntity = ItemEntity.create();
         const {name, dueDate, taskId} = itemDetails;
         itemEntity.name = name;
@@ -106,7 +106,7 @@ export class TodoService {
         return itemEntity;
     }
 
-    async deleteItem(itemId: number) {
+    async deleteItem(itemId: number): Promise<ItemEntity> {
         const itemEntity: ItemEntity = await ItemEntity.findOne(itemId);
         ItemEntity.delete(itemEntity);
         return itemEntity;
